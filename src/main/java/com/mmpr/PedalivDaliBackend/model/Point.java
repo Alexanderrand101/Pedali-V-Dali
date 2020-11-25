@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cities")
+@Table(name = "points")
 @Data
 public class Point {
     @Id
@@ -18,4 +18,6 @@ public class Point {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
+
+    private String address;
 }

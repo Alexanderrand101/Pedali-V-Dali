@@ -4,6 +4,7 @@ import com.mmpr.PedalivDaliBackend.exception.ResourceNotFoundException;
 import com.mmpr.PedalivDaliBackend.model.City;
 import com.mmpr.PedalivDaliBackend.model.Point;
 import com.mmpr.PedalivDaliBackend.payload.CitiesPayload;
+import com.mmpr.PedalivDaliBackend.payload.PointsPayload;
 import com.mmpr.PedalivDaliBackend.repository.CityRepository;
 import com.mmpr.PedalivDaliBackend.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +25,8 @@ public class MapController {
         return cityService.getAllCities();
     }
 
+    @GetMapping("/db/point")
+    public PointsPayload getPoints(){
+        return cityService.getAllPoints();
+    }
 }

@@ -1,11 +1,8 @@
 package com.mmpr.PedalivDaliBackend.repository;
 
 import com.mmpr.PedalivDaliBackend.model.City;
+import com.mmpr.PedalivDaliBackend.model.Point;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface CityRepository extends JpaRepository<City, Long> {
-
-    List<City> findAllByName(String name);
+public interface PointRepository extends JpaRepository<Point, Long> {
 }
