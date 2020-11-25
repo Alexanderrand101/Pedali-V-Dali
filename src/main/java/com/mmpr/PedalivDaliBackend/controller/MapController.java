@@ -3,8 +3,10 @@ package com.mmpr.PedalivDaliBackend.controller;
 import com.mmpr.PedalivDaliBackend.exception.ResourceNotFoundException;
 import com.mmpr.PedalivDaliBackend.model.City;
 import com.mmpr.PedalivDaliBackend.model.Point;
+import com.mmpr.PedalivDaliBackend.payload.CategoryPayload;
 import com.mmpr.PedalivDaliBackend.payload.CitiesPayload;
 import com.mmpr.PedalivDaliBackend.payload.PointsPayload;
+import com.mmpr.PedalivDaliBackend.payload.VehiclePayload;
 import com.mmpr.PedalivDaliBackend.repository.CityRepository;
 import com.mmpr.PedalivDaliBackend.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,15 @@ public class MapController {
     @GetMapping("/db/point")
     public PointsPayload getPoints(){
         return cityService.getAllPoints();
+    }
+
+    @GetMapping("/db/category")
+    public CategoryPayload getCategories(){
+        return cityService.getAllCategories();
+    }
+
+    @GetMapping("/db/vehicle")
+    public VehiclePayload getVehicles(){
+        return cityService.getAllVehicles();
     }
 }

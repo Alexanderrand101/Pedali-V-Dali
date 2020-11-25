@@ -5,9 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "points")
+@Table(name = "category")
 @Data
-public class Point {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +15,4 @@ public class Point {
 
     @Column(nullable = false)
     private String name;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "city_id")
-    private City cityId;
-
-    private String address;
 }

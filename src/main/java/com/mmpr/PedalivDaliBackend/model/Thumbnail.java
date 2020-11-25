@@ -5,20 +5,13 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "points")
+@Table(name = "thumbnail")
 @Data
-public class Point {
-
+public class Thumbnail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "city_id")
-    private City cityId;
-
-    private String address;
+    private String path;
 }
