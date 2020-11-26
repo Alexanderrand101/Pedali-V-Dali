@@ -13,7 +13,7 @@ public class OrderDto {
 
     private Long cityId;
 
-    private Long specificVehicleId;
+    private Long vehicleId;
 
     private Long pointId;
 

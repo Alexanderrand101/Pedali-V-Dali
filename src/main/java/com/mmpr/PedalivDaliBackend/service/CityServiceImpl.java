@@ -80,7 +80,10 @@ public class CityServiceImpl implements CityService {
         //replace exception
         City city = cityRepository.findById(orderDto.getCityId()).orElseThrow();
         Point point = pointRepository.findById(orderDto.getPointId()).orElseThrow();
-        SpecificVehicle specificVehicle = specificVehicleRepository.findByIdAndAndVehicleState(orderDto.getSpecificVehicleId(), VehicleState.FREE).orElseThrow();
+        Vehicle vehicle = vehicleRepository.findById(orderDto.getVehicleId()).orElseThrow();
+        SpecificVehicle specificVehicle = specificVehicleRepository.findByPointAndVehicleAndVehicleState(point,  vehicle, VehicleState.FREE).orElseThrow();
+        specificVehicle.setVehicleState(VehicleState.BUSY);
+        specificVehicle = specificVehicleRepository.save(specificVehicle);
         order.setCityId(city);
         order.setPointId(point);
         order.setSpecificVehicleId(specificVehicle);

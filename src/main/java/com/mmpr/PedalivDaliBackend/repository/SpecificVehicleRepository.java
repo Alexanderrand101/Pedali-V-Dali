@@ -1,5 +1,6 @@
 package com.mmpr.PedalivDaliBackend.repository;
 
+import com.mmpr.PedalivDaliBackend.model.Point;
 import com.mmpr.PedalivDaliBackend.model.SpecificVehicle;
 import com.mmpr.PedalivDaliBackend.model.Vehicle;
 import com.mmpr.PedalivDaliBackend.model.VehicleState;
@@ -15,5 +16,5 @@ public interface SpecificVehicleRepository extends JpaRepository<SpecificVehicle
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value = "3000")})
-    Optional<SpecificVehicle> findByIdAndAndVehicleState(Long id, VehicleState vehicleState);
+    Optional<SpecificVehicle> findByPointAndVehicleAndVehicleState(Point point, Vehicle vehicle, VehicleState vehicleState);
 }
