@@ -62,12 +62,12 @@ public class MapController {
         return cityService.newOrder(orderDto);
     }
 
-    @PostMapping("/db/order/cancel/{id}")
+    @GetMapping("/db/order/cancel/{id}")
     public Order cancelOrder(@RequestBody String orderId) {
         return cityService.cancelOrder(orderId);
     }
 
-    @PostMapping("/db/order/finish/{id}")
+    @GetMapping("/db/order/finish/{id}")
     public Order finishOrder(@RequestBody String orderId) {
         return cityService.finishOrder(orderId);
     }
