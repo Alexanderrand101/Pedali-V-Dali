@@ -93,20 +93,28 @@ public class CityServiceImpl implements CityService {
         order.setIsBodyProtect(order.getIsBodyProtect());
         order.setIsNeedChildChair(order.getIsNeedChildChair());
         order.setPrice(calcPrice(orderDto, specificVehicle.getVehicle().getPriceMin()));
-        return order;
-    }
-
-    @Override
-    public Order cancelOrder(String orderId) {
-        Order order = orderRepository.findById(UUID.fromString(orderId)).orElseThrow();
-        order.setOrderStatus(OrderStatus.CANCELED);
         return orderRepository.save(order);
     }
 
     @Override
+    @Transactional
+    public Order cancelOrder(String orderId) {
+        Order order = orderRepository.findById(UUID.fromString(orderId)).orElseThrow();
+        order.setOrderStatus(OrderStatus.CANCELED);
+        SpecificVehicle specificVehicle = order.getSpecificVehicleId();
+        specificVehicle.setVehicleState(VehicleState.FREE);
+        specificVehicleRepository.save(specificVehicle);
+        return orderRepository.save(order);
+    }
+
+    @Override
+    @Transactional
     public Order finishOrder(String orderId) {
         Order order = orderRepository.findById(UUID.fromString(orderId)).orElseThrow();
         order.setOrderStatus(OrderStatus.FINISHED);
+        SpecificVehicle specificVehicle = order.getSpecificVehicleId();
+        specificVehicle.setVehicleState(VehicleState.FREE);
+        specificVehicleRepository.save(specificVehicle);
         return orderRepository.save(order);
     }
 
