@@ -63,12 +63,12 @@ public class MapController {
     }
 
     @GetMapping("/db/order/cancel/{id}")
-    public Order cancelOrder(@RequestBody String orderId) {
+    public Order cancelOrder(@PathVariable String orderId) {
         return cityService.cancelOrder(orderId);
     }
 
     @GetMapping("/db/order/finish/{id}")
-    public Order finishOrder(@RequestBody String orderId) {
+    public Order finishOrder(@PathVariable String orderId) {
         return cityService.finishOrder(orderId);
     }
 }
