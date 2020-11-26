@@ -2,18 +2,14 @@ package com.mmpr.PedalivDaliBackend.controller;
 
 import com.mmpr.PedalivDaliBackend.exception.ResourceNotFoundException;
 import com.mmpr.PedalivDaliBackend.model.City;
+import com.mmpr.PedalivDaliBackend.model.Order;
 import com.mmpr.PedalivDaliBackend.model.Point;
-import com.mmpr.PedalivDaliBackend.payload.CategoryPayload;
-import com.mmpr.PedalivDaliBackend.payload.CitiesPayload;
-import com.mmpr.PedalivDaliBackend.payload.PointsPayload;
-import com.mmpr.PedalivDaliBackend.payload.VehiclePayload;
+import com.mmpr.PedalivDaliBackend.payload.*;
 import com.mmpr.PedalivDaliBackend.repository.CityRepository;
+import com.mmpr.PedalivDaliBackend.repository.OrderRepository;
 import com.mmpr.PedalivDaliBackend.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,18 +19,21 @@ public class MapController {
     @Autowired
     private CityService cityService;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @GetMapping("/db/city")
-    public CitiesPayload getCities(){
+    public CitiesPayload getCities() {
         return cityService.getAllCities();
     }
 
     @GetMapping("/db/point")
-    public PointsPayload getPoints(){
+    public PointsPayload getPoints() {
         return cityService.getAllPoints();
     }
 
     @GetMapping("/db/category")
-    public CategoryPayload getCategories(){
+    public CategoryPayload getCategories() {
         return cityService.getAllCategories();
     }
 
@@ -44,7 +43,32 @@ public class MapController {
     }
 
     @GetMapping("/db/vehicle")
-    public VehiclePayload getVehicles(){
+    public VehiclePayload getVehicles() {
         return cityService.getAllVehicles();
+    }
+
+    @GetMapping("/db/order")
+    public List<Order> getOrders() {
+        return orderRepository.findAll();
+    }
+
+    @GetMapping("/db/order/{orderId}")
+    public Order getOrder(@PathVariable String orderId) {
+        return cityService.getOrder(orderId);
+    }
+
+    @PostMapping("/db/order/new")
+    public Order newOrder(@RequestBody OrderDto orderDto) {
+        return cityService.newOrder(orderDto);
+    }
+
+    @PostMapping("/db/order/cancel/{id}")
+    public Order cancelOrder(@RequestBody String orderId) {
+        return cityService.cancelOrder(orderId);
+    }
+
+    @PostMapping("/db/order/finish/{id}")
+    public Order finishOrder(@RequestBody String orderId) {
+        return cityService.finishOrder(orderId);
     }
 }

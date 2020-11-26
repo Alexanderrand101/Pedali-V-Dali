@@ -1,9 +1,10 @@
 package com.mmpr.PedalivDaliBackend.service;
 
-import com.mmpr.PedalivDaliBackend.payload.CategoryPayload;
-import com.mmpr.PedalivDaliBackend.payload.CitiesPayload;
-import com.mmpr.PedalivDaliBackend.payload.PointsPayload;
-import com.mmpr.PedalivDaliBackend.payload.VehiclePayload;
+import com.mmpr.PedalivDaliBackend.model.Order;
+import com.mmpr.PedalivDaliBackend.payload.*;
+import org.aspectj.weaver.ast.Or;
+
+import java.util.List;
 
 public interface CityService {
 
@@ -16,4 +17,12 @@ public interface CityService {
     VehiclePayload getAllVehicles();
 
     VehiclePayload getAllVehiclesAtPoint(Long pointId);
+
+    Order getOrder(String orderId);
+
+    Order newOrder(OrderDto orderDto);
+
+    Order cancelOrder(String orderId);
+
+    Order finishOrder(String orderId);
 }

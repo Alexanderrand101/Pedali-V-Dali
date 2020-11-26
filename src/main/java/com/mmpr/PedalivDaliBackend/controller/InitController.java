@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,9 @@ public class InitController {
     @Autowired
     private SpecificVehicleRepository specificVehicleRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @GetMapping("/init")
     public ResponseEntity<?> init(){
         specificVehicleRepository.deleteAll();
@@ -40,6 +44,7 @@ public class InitController {
         thumbnailRepository.deleteAll();
         pointRepository.deleteAll();
         cityRepository.deleteAll();
+        orderRepository.deleteAll();
         List<String> cityNames = List.of("Самара", "Тольятти", "Новокуйбышевск");
         List<City> cities = new ArrayList<>();
         for (String name:
