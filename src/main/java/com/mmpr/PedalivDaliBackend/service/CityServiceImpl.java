@@ -96,25 +96,31 @@ public class CityServiceImpl implements CityService {
         return orderRepository.save(order);
     }
 
+    //make only for NEW orders
     @Override
     @Transactional
     public Order cancelOrder(String orderId) {
         Order order = orderRepository.findById(UUID.fromString(orderId)).orElseThrow();
-        order.setOrderStatus(OrderStatus.CANCELED);
-        SpecificVehicle specificVehicle = order.getSpecificVehicleId();
-        specificVehicle.setVehicleState(VehicleState.FREE);
-        specificVehicleRepository.save(specificVehicle);
+        if (order.getOrderStatus().equals(OrderStatus.NEW)){
+            order.setOrderStatus(OrderStatus.CANCELED);
+            SpecificVehicle specificVehicle = order.getSpecificVehicleId();
+            specificVehicle.setVehicleState(VehicleState.FREE);
+            specificVehicleRepository.save(specificVehicle);
+        }
         return orderRepository.save(order);
     }
 
+    //make only for NEW orders
     @Override
     @Transactional
     public Order finishOrder(String orderId) {
         Order order = orderRepository.findById(UUID.fromString(orderId)).orElseThrow();
-        order.setOrderStatus(OrderStatus.FINISHED);
-        SpecificVehicle specificVehicle = order.getSpecificVehicleId();
-        specificVehicle.setVehicleState(VehicleState.FREE);
-        specificVehicleRepository.save(specificVehicle);
+        if (order.getOrderStatus().equals(OrderStatus.NEW)) {
+            order.setOrderStatus(OrderStatus.FINISHED);
+            SpecificVehicle specificVehicle = order.getSpecificVehicleId();
+            specificVehicle.setVehicleState(VehicleState.FREE);
+            specificVehicleRepository.save(specificVehicle);
+        }
         return orderRepository.save(order);
     }
 
