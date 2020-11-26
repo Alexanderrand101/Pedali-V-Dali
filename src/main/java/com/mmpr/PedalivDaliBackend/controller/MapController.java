@@ -62,12 +62,12 @@ public class MapController {
         return cityService.newOrder(orderDto);
     }
 
-    @GetMapping("/db/order/cancel/{id}")
+    @GetMapping("/db/order/cancel/{orderId}")
     public Order cancelOrder(@PathVariable String orderId) {
         return cityService.cancelOrder(orderId);
     }
 
-    @GetMapping("/db/order/finish/{id}")
+    @GetMapping("/db/order/finish/{orderId}")
     public Order finishOrder(@PathVariable String orderId) {
         return cityService.finishOrder(orderId);
     }
