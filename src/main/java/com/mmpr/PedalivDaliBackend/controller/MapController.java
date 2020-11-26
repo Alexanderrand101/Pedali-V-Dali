@@ -12,6 +12,7 @@ import com.mmpr.PedalivDaliBackend.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -35,6 +36,11 @@ public class MapController {
     @GetMapping("/db/category")
     public CategoryPayload getCategories(){
         return cityService.getAllCategories();
+    }
+
+    @GetMapping("/db/vehicle/atPoint/{pointId}")
+    public VehiclePayload getVehiclesAtPoint(@PathVariable Long pointId) {
+        return cityService.getAllVehiclesAtPoint(pointId);
     }
 
     @GetMapping("/db/vehicle")

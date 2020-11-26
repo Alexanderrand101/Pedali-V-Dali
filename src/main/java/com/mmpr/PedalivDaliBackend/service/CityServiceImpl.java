@@ -56,4 +56,12 @@ public class CityServiceImpl implements CityService {
         vehiclePayload.setCount(vehiclePayload.getData().size());
         return vehiclePayload;
     }
+
+    @Override
+    public VehiclePayload getAllVehiclesAtPoint(Long pointId) {
+        VehiclePayload vehiclePayload = new VehiclePayload();
+        vehiclePayload.setData(vehicleRepository.findVehiclesAtPoint(pointId));
+        vehiclePayload.setCount(vehiclePayload.getData().size());
+        return vehiclePayload;
+    }
 }

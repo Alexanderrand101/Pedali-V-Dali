@@ -14,4 +14,6 @@ public interface CityService {
     CategoryPayload getAllCategories();
 
     VehiclePayload getAllVehicles();
+
+    VehiclePayload getAllVehiclesAtPoint(Long pointId);
 }

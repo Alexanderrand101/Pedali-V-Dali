@@ -24,10 +24,6 @@ public class Vehicle {
     private Category categoryId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "point_id")
-    private Point point;
-
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "path_id")
     private Thumbnail thumbnail;
 }

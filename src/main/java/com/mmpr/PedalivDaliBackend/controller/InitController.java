@@ -29,8 +29,12 @@ public class InitController {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @Autowired
+    private SpecificVehicleRepository specificVehicleRepository;
+
     @GetMapping("/init")
     public ResponseEntity<?> init(){
+        specificVehicleRepository.deleteAll();
         vehicleRepository.deleteAll();
         categoriesRepository.deleteAll();
         thumbnailRepository.deleteAll();
@@ -71,7 +75,6 @@ public class InitController {
         Vehicle vehicle1 = new Vehicle();
         vehicle1.setName("Хороший велосипед");
         vehicle1.setCategoryId(category1);
-        vehicle1.setPoint(point1);
         vehicle1.setPriceMin(100.0);
         vehicle1.setPriceMax(100.0);
         vehicle1.setThumbnail(thumbnail1);
@@ -80,12 +83,23 @@ public class InitController {
         Vehicle vehicle2 = new Vehicle();
         vehicle2.setName("Краденый велосипед");
         vehicle2.setCategoryId(category1);
-        vehicle2.setPoint(point1);
         vehicle2.setPriceMin(200.0);
         vehicle2.setPriceMax(200.0);
         vehicle2.setThumbnail(thumbnail2);
         vehicleRepository.save(vehicle2);
 
+        SpecificVehicle specificVehicle1 = new SpecificVehicle();
+        specificVehicle1.setPoint(point1);
+        specificVehicle1.setVehicle(vehicle1);
+        specificVehicle1.setVehicleState(VehicleState.FREE);
+
+        SpecificVehicle specificVehicle2 = new SpecificVehicle();
+        specificVehicle2.setPoint(point2);
+        specificVehicle2.setVehicle(vehicle2);
+        specificVehicle2.setVehicleState(VehicleState.FREE);
+
+        specificVehicleRepository.save(specificVehicle1);
+        specificVehicleRepository.save(specificVehicle2);
         return ResponseEntity.ok().build();
     }
 }
