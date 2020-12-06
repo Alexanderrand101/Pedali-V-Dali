@@ -4,11 +4,15 @@ import com.mmpr.PedalivDaliBackend.exception.ResourceNotFoundException;
 import com.mmpr.PedalivDaliBackend.model.City;
 import com.mmpr.PedalivDaliBackend.model.Order;
 import com.mmpr.PedalivDaliBackend.model.Point;
+import com.mmpr.PedalivDaliBackend.model.SpecificVehicle;
 import com.mmpr.PedalivDaliBackend.payload.*;
 import com.mmpr.PedalivDaliBackend.repository.CityRepository;
 import com.mmpr.PedalivDaliBackend.repository.OrderRepository;
 import com.mmpr.PedalivDaliBackend.service.CityService;
+import com.mmpr.PedalivDaliBackend.service.CurrentUser;
+import com.mmpr.PedalivDaliBackend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,17 +62,39 @@ public class MapController {
     }
 
     @PostMapping("/db/order/new")
-    public Order newOrder(@RequestBody OrderDto orderDto) {
+    @PreAuthorize("hasRole('USER')")
+    public Order newOrder(@RequestBody OrderDto orderDto, @CurrentUser CustomUserDetailsService.UserPrincipal userPrincipal) {
+        orderDto.setUserId(userPrincipal.getId());
         return cityService.newOrder(orderDto);
     }
 
     @GetMapping("/db/order/cancel/{orderId}")
+    @PreAuthorize("hasRole('USER')")
     public Order cancelOrder(@PathVariable String orderId) {
         return cityService.cancelOrder(orderId);
     }
 
     @GetMapping("/db/order/finish/{orderId}")
+    @PreAuthorize("hasRole('USER')")
     public Order finishOrder(@PathVariable String orderId) {
         return cityService.finishOrder(orderId);
+    }
+
+    @GetMapping("/db/order/start/{orderId}")
+    @PreAuthorize("hasRole('USER')")
+    public Order startOrder(@PathVariable String orderId) {
+        return cityService.startOrder(orderId);
+    }
+
+    @GetMapping("/db/specificVehicle/{vehicleId}")
+    public SpecificVehicle getForVehicle(@PathVariable Long vehicleId) {
+        return cityService.getSpecificVehicle(vehicleId);
+    }
+
+    @PostMapping("/db/order/newForVehicle")
+    @PreAuthorize("hasRole('USER')")
+    public Order startOrderForSpecificVehicle(@RequestBody OrderDto orderDto, @CurrentUser CustomUserDetailsService.UserPrincipal userPrincipal){
+        orderDto.setUserId(userPrincipal.getId());
+        return cityService.newOrderForSpecificVehicle(orderDto);
     }
 }

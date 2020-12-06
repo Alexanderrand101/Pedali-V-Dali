@@ -1,5 +1,6 @@
 package com.mmpr.PedalivDaliBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -32,11 +33,17 @@ public class Order {
     private Point pointId;
 
     //replaceWithDecimal
-    private Double price;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal price;
 
     private Date dateFrom;
 
     private Date dateTo;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
     @Column(name = "is_body_protect")
     private Boolean isBodyProtect;

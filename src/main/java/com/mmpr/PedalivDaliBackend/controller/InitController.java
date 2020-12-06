@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,16 +81,14 @@ public class InitController {
         Vehicle vehicle1 = new Vehicle();
         vehicle1.setName("Хороший велосипед");
         vehicle1.setCategoryId(category1);
-        vehicle1.setPriceMin(100.0);
-        vehicle1.setPriceMax(100.0);
+        vehicle1.setPrice(new BigDecimal("100.0"));
         vehicle1.setThumbnail(thumbnail1);
         vehicleRepository.save(vehicle1);
 
         Vehicle vehicle2 = new Vehicle();
         vehicle2.setName("Краденый велосипед");
         vehicle2.setCategoryId(category1);
-        vehicle2.setPriceMin(200.0);
-        vehicle2.setPriceMax(200.0);
+        vehicle2.setPrice(new BigDecimal("100.0"));
         vehicle2.setThumbnail(thumbnail2);
         vehicleRepository.save(vehicle2);
 

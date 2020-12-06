@@ -16,9 +16,8 @@ public class Vehicle {
     @Column(nullable = false)
     private String name;
 
-    private Double priceMin;
-
-    private Double priceMax;
+    @Column(precision = 10, scale = 2)
+    private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")

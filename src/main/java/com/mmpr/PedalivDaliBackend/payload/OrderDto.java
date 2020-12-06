@@ -11,9 +11,13 @@ public class OrderDto {
 
     private String id;
 
+    private Long userId;
+
     private Long cityId;
 
     private Long vehicleId;
+
+    private Long specificVehicleId;
 
     private Long pointId;
 

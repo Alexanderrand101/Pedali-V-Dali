@@ -1,4 +1,5 @@
 package com.mmpr.PedalivDaliBackend.config;
+import com.mmpr.PedalivDaliBackend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,12 +28,15 @@ import java.util.Arrays;
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /*@Override
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
+    @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder());
-    }*/
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -40,17 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    /*@Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }*/
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+        http.cors().and()
                 .csrf()
                 .disable()
                 .formLogin()
