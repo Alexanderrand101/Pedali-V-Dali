@@ -30,12 +30,12 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/login")
+    @PostMapping("/auth")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginSignupRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
+                        loginRequest.getLogin(),
                         loginRequest.getPassword()
                 )
         );
