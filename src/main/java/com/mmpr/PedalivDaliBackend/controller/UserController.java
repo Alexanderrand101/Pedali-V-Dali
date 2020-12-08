@@ -55,7 +55,7 @@ public class UserController {
         User user = new User();
         user.setName(signUpRequest.getLogin());
         user.setEmail(signUpRequest.getEmail());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         userRepository.save(user);
 
         return ResponseEntity.ok().build();
