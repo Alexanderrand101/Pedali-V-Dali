@@ -96,8 +96,8 @@ public class CityServiceImpl implements CityService {
         order.setDateFrom(orderDto.getDateFrom());
         order.setDateTo(orderDto.getDateTo());
         order.setOrderStatus(OrderStatus.NEW);
-        order.setIsBodyProtect(order.getIsBodyProtect());
-        order.setIsNeedChildChair(order.getIsNeedChildChair());
+        order.setIsBodyProtect(orderDto.getIsBodyProtect());
+        order.setIsNeedChildChair(orderDto.getIsNeedChildChair());
         order.setUser(user);
         order.setPrice(calcPrice(order, specificVehicle.getVehicle().getPrice()));
         return orderRepository.save(order);
@@ -109,7 +109,7 @@ public class CityServiceImpl implements CityService {
         //replace exception
         //City city = cityRepository.findById(orderDto.getCityId()).orElseThrow();
         //Point point = pointRepository.findById(orderDto.getPointId()).orElseThrow();
-        SpecificVehicle specificVehicle = specificVehicleRepository.findById(orderDto.getVehicleId()).orElseThrow();
+        SpecificVehicle specificVehicle = specificVehicleRepository.findById(orderDto.getSpecificVehicleId()).orElseThrow();
         if (VehicleState.FREE_NOT_AT_POINT.equals(specificVehicle.getVehicleState()) || VehicleState.FREE.equals(specificVehicle.getVehicleState())) {
             User user = userRepository.findById(orderDto.getUserId()).orElseThrow();
             specificVehicle.setVehicleState(VehicleState.BUSY);
@@ -152,7 +152,7 @@ public class CityServiceImpl implements CityService {
     @Transactional
     public Order finishOrder(String orderId) {
         Order order = orderRepository.findById(UUID.fromString(orderId)).orElseThrow();
-        if (order.getOrderStatus().equals(OrderStatus.NEW)) {
+        if (order.getOrderStatus().equals(OrderStatus.STARTED)) {
             order.setOrderStatus(OrderStatus.FINISHED);
             SpecificVehicle specificVehicle = order.getSpecificVehicleId();
             specificVehicle.setVehicleState(VehicleState.FREE_NOT_AT_POINT);

@@ -39,13 +39,14 @@ public class InitController {
 
     @GetMapping("/init")
     public ResponseEntity<?> init(){
+        orderRepository.deleteAll();
         specificVehicleRepository.deleteAll();
         vehicleRepository.deleteAll();
         categoriesRepository.deleteAll();
         thumbnailRepository.deleteAll();
         pointRepository.deleteAll();
         cityRepository.deleteAll();
-        orderRepository.deleteAll();
+
         List<String> cityNames = List.of("Самара", "Тольятти", "Новокуйбышевск");
         List<City> cities = new ArrayList<>();
         for (String name:
