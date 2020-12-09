@@ -84,7 +84,7 @@ public class MapController {
 
     @GetMapping("/db/orders")
     @PreAuthorize("hasRole('USER')")
-    public OrdersPayload getOrders(@PathVariable String orderId, @CurrentUser CustomUserDetailsService.UserPrincipal userPrincipal) {
+    public OrdersPayload getOrders(@CurrentUser CustomUserDetailsService.UserPrincipal userPrincipal) {
         return cityService.getAllOrdersForUser(userPrincipal.getId());
     }
 
