@@ -3,9 +3,6 @@ package com.mmpr.PedalivDaliBackend.service;
 import com.mmpr.PedalivDaliBackend.model.Order;
 import com.mmpr.PedalivDaliBackend.model.SpecificVehicle;
 import com.mmpr.PedalivDaliBackend.payload.*;
-import org.aspectj.weaver.ast.Or;
-
-import java.util.List;
 
 public interface CityService {
 
@@ -32,4 +29,6 @@ public interface CityService {
     Order newOrderForSpecificVehicle(OrderDto orderDto);
 
     SpecificVehicle getSpecificVehicle(Long vehicleId);
+
+    OrdersPayload getAllOrdersForUser(Long id);
 }

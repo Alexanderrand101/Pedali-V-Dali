@@ -3,7 +3,6 @@ package com.mmpr.PedalivDaliBackend.service;
 import com.mmpr.PedalivDaliBackend.model.*;
 import com.mmpr.PedalivDaliBackend.payload.*;
 import com.mmpr.PedalivDaliBackend.repository.*;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -131,6 +130,14 @@ public class CityServiceImpl implements CityService {
     @Override
     public SpecificVehicle getSpecificVehicle(Long vehicleId) {
         return specificVehicleRepository.findById(vehicleId).orElseThrow();
+    }
+
+    @Override
+    public OrdersPayload getAllOrdersForUser(Long id) {
+        OrdersPayload ordersPayload = new OrdersPayload();
+        ordersPayload.setData(orderRepository.findAllByUser_Id(id));
+        ordersPayload.setCount(ordersPayload.getData().size());
+        return ordersPayload;
     }
 
     //make only for NEW orders

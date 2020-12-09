@@ -1,12 +1,8 @@
 package com.mmpr.PedalivDaliBackend.controller;
 
-import com.mmpr.PedalivDaliBackend.exception.ResourceNotFoundException;
-import com.mmpr.PedalivDaliBackend.model.City;
 import com.mmpr.PedalivDaliBackend.model.Order;
-import com.mmpr.PedalivDaliBackend.model.Point;
 import com.mmpr.PedalivDaliBackend.model.SpecificVehicle;
 import com.mmpr.PedalivDaliBackend.payload.*;
-import com.mmpr.PedalivDaliBackend.repository.CityRepository;
 import com.mmpr.PedalivDaliBackend.repository.OrderRepository;
 import com.mmpr.PedalivDaliBackend.service.CityService;
 import com.mmpr.PedalivDaliBackend.service.CurrentUser;
@@ -84,6 +80,12 @@ public class MapController {
     @PreAuthorize("hasRole('USER')")
     public Order startOrder(@PathVariable String orderId) {
         return cityService.startOrder(orderId);
+    }
+
+    @GetMapping("/db/orders")
+    @PreAuthorize("hasRole('USER')")
+    public OrdersPayload getOrders(@PathVariable String orderId, @CurrentUser CustomUserDetailsService.UserPrincipal userPrincipal) {
+        return cityService.getAllOrdersForUser(userPrincipal.getId());
     }
 
     @GetMapping("/db/specificVehicle/{vehicleId}")
